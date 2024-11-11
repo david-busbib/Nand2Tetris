@@ -1,0 +1,179 @@
+function SquareGame.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+push constant 0
+push constant 30
+call Square.new 3
+pop this 0
+push constant 0
+pop this 1
+push pointer 0
+return  
+function SquareGame.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Square.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return  
+function SquareGame.moveSquare 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 1
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_0
+goto SquareGame.IF_IS_SECOND_CASE_0
+label SquareGame.IF_IS_FIRST_CASE_0
+push this 0
+call Square.moveUp 1
+pop temp 0
+label SquareGame.IF_IS_SECOND_CASE_0
+push this 1
+push constant 2
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_1
+goto SquareGame.IF_IS_SECOND_CASE_1
+label SquareGame.IF_IS_FIRST_CASE_1
+push this 0
+call Square.moveDown 1
+pop temp 0
+label SquareGame.IF_IS_SECOND_CASE_1
+push this 1
+push constant 3
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_2
+goto SquareGame.IF_IS_SECOND_CASE_2
+label SquareGame.IF_IS_FIRST_CASE_2
+push this 0
+call Square.moveLeft 1
+pop temp 0
+label SquareGame.IF_IS_SECOND_CASE_2
+push this 1
+push constant 4
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_3
+goto SquareGame.IF_IS_SECOND_CASE_3
+label SquareGame.IF_IS_FIRST_CASE_3
+push this 0
+call Square.moveRight 1
+pop temp 0
+label SquareGame.IF_IS_SECOND_CASE_3
+push constant 5
+call Sys.wait 1
+pop temp 0
+push constant 0
+return  
+function SquareGame.run 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label SquareGame.WHILE_BG_ITERATION_WHILE_STATE_4
+push local 1
+not
+not
+if-goto SquareGame.WHILE_LINE_ITERATION_WHILE_STATE_4
+label SquareGame.WHILE_BG_ITERATION_WHILE_STATE_5
+push local 0
+push constant 0
+eq
+not
+if-goto SquareGame.WHILE_LINE_ITERATION_WHILE_STATE_5
+call Keyboard.keyPressed 0
+pop local 0
+push pointer 0
+call SquareGame.moveSquare 1
+pop temp 0
+goto SquareGame.WHILE_BG_ITERATION_WHILE_STATE_5
+label SquareGame.WHILE_LINE_ITERATION_WHILE_STATE_5
+push local 0
+push constant 81
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_6
+goto SquareGame.IF_IS_SECOND_CASE_6
+label SquareGame.IF_IS_FIRST_CASE_6
+push constant 1
+neg
+pop local 1
+label SquareGame.IF_IS_SECOND_CASE_6
+push local 0
+push constant 90
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_7
+goto SquareGame.IF_IS_SECOND_CASE_7
+label SquareGame.IF_IS_FIRST_CASE_7
+push this 0
+call Square.decSize 1
+pop temp 0
+label SquareGame.IF_IS_SECOND_CASE_7
+push local 0
+push constant 88
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_8
+goto SquareGame.IF_IS_SECOND_CASE_8
+label SquareGame.IF_IS_FIRST_CASE_8
+push this 0
+call Square.incSize 1
+pop temp 0
+label SquareGame.IF_IS_SECOND_CASE_8
+push local 0
+push constant 131
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_9
+goto SquareGame.IF_IS_SECOND_CASE_9
+label SquareGame.IF_IS_FIRST_CASE_9
+push constant 1
+pop this 1
+label SquareGame.IF_IS_SECOND_CASE_9
+push local 0
+push constant 133
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_10
+goto SquareGame.IF_IS_SECOND_CASE_10
+label SquareGame.IF_IS_FIRST_CASE_10
+push constant 2
+pop this 1
+label SquareGame.IF_IS_SECOND_CASE_10
+push local 0
+push constant 130
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_11
+goto SquareGame.IF_IS_SECOND_CASE_11
+label SquareGame.IF_IS_FIRST_CASE_11
+push constant 3
+pop this 1
+label SquareGame.IF_IS_SECOND_CASE_11
+push local 0
+push constant 132
+eq
+if-goto SquareGame.IF_IS_FIRST_CASE_12
+goto SquareGame.IF_IS_SECOND_CASE_12
+label SquareGame.IF_IS_FIRST_CASE_12
+push constant 4
+pop this 1
+label SquareGame.IF_IS_SECOND_CASE_12
+label SquareGame.WHILE_BG_ITERATION_WHILE_STATE_13
+push local 0
+push constant 0
+eq
+not
+not
+if-goto SquareGame.WHILE_LINE_ITERATION_WHILE_STATE_13
+call Keyboard.keyPressed 0
+pop local 0
+push pointer 0
+call SquareGame.moveSquare 1
+pop temp 0
+goto SquareGame.WHILE_BG_ITERATION_WHILE_STATE_13
+label SquareGame.WHILE_LINE_ITERATION_WHILE_STATE_13
+goto SquareGame.WHILE_BG_ITERATION_WHILE_STATE_4
+label SquareGame.WHILE_LINE_ITERATION_WHILE_STATE_4
+push constant 0
+return  

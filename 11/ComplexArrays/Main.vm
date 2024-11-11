@@ -1,0 +1,14 @@
+push constant 100
+push constant 32
+and
+push constant 21
+neg
+label Main.LLLLL
+push constant 32767
+push constant 1
+add
+and
+if-goto label Main.LLLLL
+
+
+
