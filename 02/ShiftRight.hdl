@@ -1,0 +1,75 @@
+// This file is part of nand2tetris, as taught in The Hebrew University, and
+// was written by Aviv Yaish. It is an extension to the specifications given
+// [here](https://www.nand2tetris.org) (Shimon Schocken and Noam Nisan, 2017),
+// as allowed by the Creative Common Attribution-NonCommercial-ShareAlike 3.0
+// Unported [License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
+
+/**
+ * 16-bit right-shifter.
+ *
+ * The chip's output is a "right-shift" of the input:
+ * - Every input bit is moved one position to the right
+ * - A new bit which is equal to the sign bit is inserted as the left-most bit
+ *
+ * For example:
+ * ShiftRight(0000000000000001)=0000000000000000 // ShiftRight(1)=0
+ * ShiftRight(0100000000000000)=0010000000000000
+ * ShiftRight(1100000000000000)=1110000000000000
+ *
+ * Note that this operation is (usually) equivalent to dividing the input by 2.
+ * This definition is also called an arithmetic right-shift, and is useful for
+ * the efficient implementation of various operations which we will see later on
+ * in the course.
+ * Another variant is the logical right-shift, which always inserts a new '0'
+ * bit.
+ */
+
+CHIP ShiftRight {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+    // Put your code here:
+    Not(in=in[0],out=out0);
+    Not(in=in[1],out=out1);
+    Not(in=in[2],out=out2);
+    Not(in=in[3],out=out3);
+    Not(in=in[4],out=out4);
+    Not(in=in[5],out=out5);
+    Not(in=in[6],out=out6);
+    Not(in=in[7],out=out7);
+    Not(in=in[8],out=out8);
+    Not(in=in[9],out=out9);
+    Not(in=in[10],out=out10);
+    Not(in=in[11],out=out11);
+    Not(in=in[12],out=out12);
+    Not(in=in[13],out=out13);
+    Not(in=in[14],out=out14);
+    Not(in=in[15],out=out15);
+
+    Not(in=out1,out=out[0]);
+    Not(in=out2,out=out[1]);
+    Not(in=out3,out=out[2]);
+    Not(in=out4,out=out[3]);
+    Not(in=out5,out=out[4]);
+    Not(in=out6,out=out[5]);
+    Not(in=out7,out=out[6]);
+    Not(in=out8,out=out[7]);
+    Not(in=out9,out=out[8]);
+    Not(in=out10,out=out[9]);
+    Not(in=out11,out=out[10]);
+    Not(in=out12,out=out[11]);
+    Not(in=out13,out=out[12]);
+    Not(in=out14,out=out[13]);
+    Not(in=out15,out=out[14]);
+    Not(in=out15,out=out[15]);
+
+
+
+
+
+
+
+
+
+}

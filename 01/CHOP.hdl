@@ -1,0 +1,9 @@
+CHIP CHOP {
+    IN a, b;
+    OUT out;
+    PARTS:
+    // Your code goes here
+    DMux(in=true,sel=a,b=out1);
+    DMux(in=out1,sel=b,b=out);
+
+}
