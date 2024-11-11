@@ -1,0 +1,58 @@
+// This file is part of nand2tetris, as taught in The Hebrew University, and
+// was written by Aviv Yaish. It is an extension to the specifications given
+// [here](https://www.nand2tetris.org) (Shimon Schocken and Noam Nisan, 2017),
+// as allowed by the Creative Common Attribution-NonCommercial-ShareAlike 3.0
+// Unported [License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
+
+
+// The ExtendAlu chip is an extension of the standard ALU which also supports
+// shift operations.
+// The inputs of the extended ALU are instruction[9], x[16], y[16].
+// The "ng" and "zr" output pins behave the same as in the regular ALU.
+// The "out" output is defined as follows:
+// If instruction[8]=1 and instruction[7]=1 the output is identical to the 
+// regular ALU, where:
+// instruction[5]=zx, instruction[4]=nx, ..., instruction[0]=no
+// Else, if instruction[8]=0 and instruction[7]=1, the output is a shift:
+// - If instruction[4] == 0, the input "y" will be shifted, otherwise "x".
+// - If instruction[5] == 0, the shift will be a right-shift, otherwise left.
+// - All other inputs are undefined.
+
+CHIP ExtendAlu {
+     IN x[16], y[16], instruction[9];
+     OUT out[16], zr, ng;
+     
+     PARTS:
+    And(a=instruction[8],b=instruction[7],out=and7and8);
+    Not(in=and7and8,out=not8and7);
+    ALU(x=x,y=y,zx=instruction[5],nx=instruction[4],zy=instruction[3]
+     ,ny=instruction[2],f= instruction[1],no= instruction[0] ,out=ifOut1,zr=aluZr,ng=aluNg);
+    //check if the other option is good (for personal check)
+
+    Mux(a=false,b=true,sel=instruction[8],out=check1);
+    Mux(a=true,b=false,sel=instruction[7],out=check2);
+    And(a=check1,b=check2,out=elseOut);
+
+    Mux16(a=y,b=x,sel=instruction[4],out=whichOne);
+    ShiftLeft(in=whichOne,out=leftShift);
+    And(a=check2,b=elseOut,out=nextHelp);
+    ShiftRight(in=whichOne,out= rightShift);
+    Not(in=instruction[5],out=not5);
+    Mux16(a=leftShift,b=rightShift,sel=not5,out=ifOut2,out[0..7]=firstHalf,out[8..15]=secondHalf,out[15]=last);
+    //which ng to use
+    Mux(a=last,b=aluNg,sel=and7and8,out=ng);
+
+    //which output we need to chose
+    Mux16(a=ifOut2,b=ifOut1,sel=and7and8,out=out);
+
+    //now if out =0 we need to change the zr output
+    Or8Way(in=firstHalf,out=out1);
+    Or8Way(in=secondHalf,out=out2);
+    Or(a=out1,b=out2,out=out3);
+    Not(in=out3,out=zrElse);
+
+    Mux(a=aluZr ,b=zrElse,sel=not8and7,out=zr);
+
+
+
+}
